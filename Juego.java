@@ -8,6 +8,9 @@
  *
  * @author Rtz
  */
+
+import javax.swing.JOptionPane;
+
 public class batallaNaval {
     public static int [][] tableros(int tablero[][], int indice){
 
@@ -55,6 +58,24 @@ public class batallaNaval {
         return tablero;
     }
     public static void main(String []args){
+
+      //Menu de usuario y de uso
+      int optionUser;
+
+      do{
+
+        optionUser = Integer.parseInt(JOptionPane.showInputDialog(
+         "######################################### \n" +
+         " JUEGO BATALLA NAVAL V.1 \n" +
+         "1. Instrucciones del juego\n" +
+         "2. Como funciona \n" +
+         "3. Empezar juego \n" +
+         "4. Salir"
+        ));
+
+
+      }while(opcionUser != 5)
+
         int tablero1 [][]= new int [6][6],tablero2 [][]= new int [6][6];
         tablero1 = tableros(tablero1,2);
         tablero2 = tableros(tablero2,3);
