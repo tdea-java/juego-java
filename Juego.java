@@ -1,70 +1,79 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-class Juego{
+/**
+ *
+ * @author Rtz
+ */
+public class batallaNaval {
+    public static int [][] tableros(int tablero[][], int indice){
 
-	public static void main(String args[]) {
+        switch (indice){
+            case 0:
+                for(int i = 0; i<6; i++){
+                    for(int j = 0; j<6; j++){
+                        if( (i<=4 && j==0) || (i==0 && (j==2||j== 3))   || (i==2 && (j==2||j==3||j==4)) || (j==5 && i>=4)
+                                ){
+                            tablero[i][j]=1;
+                        }
+                    }
+                }
+                break;
+            case 1:
+                for(int i = 0; i<6; i++){
+                    for(int j = 0; j<6; j++){
+                        if((j<5 && i==5) || (i==2 && (j>=0 && j <2)) || (i==0 && (j>=1 && j <= 2)) || (j==4 && (i>0 && i<4))){
+                            tablero[i][j]=1;
+                        }
+                    }
+                }
+                break;
+            case 2:
+                for(int i = 0; i<6; i++){
+                    for(int j = 0; j<6; j++){
+                        if((i<5 && j==2) || (j==0 && (i>0 && i<4)) || (i==0 && (j>=4 && j <= 5)) || (i==5 && (j>=0 && j<=1))){
+                            tablero[i][j]=1;
+                        }
+                    }
+                }
+                break;
+            case 3:
+                for(int i = 0; i<6; i++){
+                    for(int j = 0; j<6; j++){
+                        if((i>0 && j==5) || (i==4 && (j>0 && j <4)) || (i==1 && (j>=2 && j <= 3)) || (j==0 && (i>=2 && i<=3))){
+                            tablero[i][j]=1;
+                        }
+                    }
+                }
+                break;
 
-  int[][] player1 = generarTableros();
-  int[][] player2 = generarTableros();
+        }
 
-
-  System.out.print("Resultado jugador1 \n");
-  for(int i=0; i < player1.length; i++){
-    for(int j=0; j < player1[i].length; j++){
-        System.out.print(player1[i][j] + "\t");
-      }
-      System.out.println();
-  }
-
-   System.out.print("Resultado jugador2 \n");
-  for(int i=0; i < player2.length; i++){
-    for(int j=0; j < player2[i].length; j++){
-        System.out.print(player2[i][j] + "\t");
-      }
-      System.out.println();
-  }
-
-	}
-
-	public static int[][] generarTableros(){
-		int[][][] tableros = {
-		{
-      { 0 ,0 ,0, 0, 0, 0},
-      { 0 ,0 ,0, 0, 0, 0},
-      { 0 ,0 ,0, 0, 0, 0},
-      { 0 ,0 ,0, 0, 0, 0},
-      { 0 ,0 ,0, 0, 0, 0},
-      { 0 ,0 ,0, 0, 0, 0}
-		},
-		{
-      { 1 ,0 ,0, 0, 0, 0},
-      { 1 ,0 ,0, 0, 0, 0},
-      { 1 ,0 ,0, 0, 0, 0},
-      { 1 ,0 ,0, 0, 0, 0},
-      { 1 ,0 ,0, 0, 0, 0},
-      { 1 ,0 ,0, 0, 0, 0}
-		},
-    {
-      { 2, 0 ,0, 0, 0, 0},
-      { 2, 0 ,0, 0, 0, 0},
-      { 2, 0 ,0, 0, 0, 0},
-      { 2, 0 ,0, 0, 0, 0},
-      { 2, 0 ,0, 0, 0, 0},
-      { 2, 0 ,0, 0, 0, 0}
+        return tablero;
     }
-		};
+    public static void main(String []args){
+        int tablero1 [][]= new int [6][6],tablero2 [][]= new int [6][6];
+        tablero1 = tableros(tablero1,2);
+        tablero2 = tableros(tablero2,3);
 
-    //seleccionar solo uno de los tableros para un jugador
-    int[][] tableroJugador = new int[6][6];
-    int tableroRandom = (int)(Math.random()*3); // va de 0-2 de los tableros generados
-
-     for(int i=tableroRandom; i <= tableroRandom; i++){
-        for(int j=0; j < tableros[i].length; j++){
-          for(int k=0; k < tableros[i][j].length; k++){
-             tableroJugador[j][k] = tableros[i][j][k];
-          }
-          System.out.println();
+        System.out.println("tablero1");
+        for(int i = 0; i<6; i++){
+            for(int j = 0; j<6; j++){
+                System.out.print("|"+tablero1[i][j]+"|");
+            }
+            System.out.println();
+            System.out.println("----------------");
+        }
+        System.out.println("tablero2");
+        for(int i = 0; i<6; i++){
+            for(int j = 0; j<6; j++){
+                System.out.print("|"+tablero2[i][j]+"|");
+            }
+            System.out.println("");
+            System.out.println("----------------");
         }
     }
-    return tableroJugador;
-  }
 }
