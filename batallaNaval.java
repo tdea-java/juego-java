@@ -99,13 +99,16 @@ public class batallaNaval {
         //contador de puntos jugador2
         int contPlayer2 = 0;
         int contBarcoPlayer2 = cantPuntosBarcosPlayer(tablero2);
-        boolean turnoPlayer = true;
 
         //coordenadas del jugador
         int coorX = 0;
         int coorY = 0;
         String CoorXY;
         String x = "X";
+
+        //variables globales para los dos jugadores
+         boolean turnoPlayer = true;
+         int turnoJuego = 1;
 
         while((contPlayer1 <= contBarcoPlayer1) || (contPlayer2 <= contBarcoPlayer2)){
 
@@ -125,10 +128,12 @@ public class batallaNaval {
             coorX = Integer.parseInt(cXY[0]);
             coorY = Integer.parseInt(cXY[1]);
 
+            System.out.print("\nTurno de la partida #" + turnoJuego + "\n");
+
             if(turnoPlayer){
                System.out.print("ATAQUE JUGADOR #1 \n");
 
-               if(tableroVPlayer2[coorX][coorY] == x){
+               if(tableroVPlayer2[coorX][coorY] != "-"){
                     System.out.print("haz atacado en un mismo punto");
                } else{
                   if(tablero2[coorX][coorY] == 1){
@@ -143,7 +148,7 @@ public class batallaNaval {
             } else {
                 System.out.print("ATAQUE JUGADOR #2 \n");
 
-               if(tableroVPlayer1[coorX][coorY] == x){
+               if(tableroVPlayer1[coorX][coorY] != "-"){
                     System.out.print("haz atacado en un mismo punto");
                } else{
                   if(tablero1[coorX][coorY] == 1){
@@ -154,7 +159,6 @@ public class batallaNaval {
                    }
 
             contPlayer2++;
-
             }
 
           System.out.println("Tablero JUGADOR #1");
@@ -176,6 +180,7 @@ public class batallaNaval {
           }
 
       turnoPlayer = !turnoPlayer;
+      turnoJuego++;
 
     }
 
