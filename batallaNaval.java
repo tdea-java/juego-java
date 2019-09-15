@@ -115,12 +115,12 @@ public class batallaNaval {
             if(turnoPlayer){
                CoorXY = JOptionPane.showInputDialog(
                 "Turno del jugador #1 \n" +
-                "Digitar las coordenadas de ataque"
+                "Capitán!! Cordenadas para atacar"
                );
             } else{
                 CoorXY = JOptionPane.showInputDialog(
                 "Turno del jugador #2 \n" +
-                "Digitar las coordenadas de ataque"
+                "Capitán!! Cordenadas para atacar"
                );
             }
 
@@ -128,13 +128,14 @@ public class batallaNaval {
             coorX = Integer.parseInt(cXY[0]);
             coorY = Integer.parseInt(cXY[1]);
 
-            System.out.print("\nTurno de la partida #" + turnoJuego + "\n");
+            System.out.print("Turno de la partida #" + turnoJuego + "\n\n");
 
             if(turnoPlayer){
-               System.out.print("ATAQUE JUGADOR #1 \n");
+               System.out.print("ATAQUE JUGADOR #1 \n"
+                + "----------------- \n");
 
                if(tableroVPlayer2[coorX][coorY] != "-"){
-                    System.out.print("haz atacado en un mismo punto");
+                    System.out.print("Tripulación: Capitán!! pon más cuidado, estamos atacando en el mismo punto. \n");
                } else{
                   if(tablero2[coorX][coorY] == 1){
                       tableroVPlayer2[coorX][coorY] = "O";
@@ -142,14 +143,14 @@ public class batallaNaval {
                      tableroVPlayer2[coorX][coorY] = "X";
                      }
                    }
-
             contPlayer1++;
 
             } else {
-                System.out.print("ATAQUE JUGADOR #2 \n");
+                System.out.print("ATAQUE JUGADOR #2 \n"
+                  + "----------------- \n");
 
                if(tableroVPlayer1[coorX][coorY] != "-"){
-                    System.out.print("haz atacado en un mismo punto");
+                    System.out.print("Tripulación: Capitán!! pon más cuidado, estamos atacando en el mismo punto. \n");
                } else{
                   if(tablero1[coorX][coorY] == 1){
                       tableroVPlayer1[coorX][coorY] = "O";
@@ -162,6 +163,9 @@ public class batallaNaval {
             }
 
           System.out.println("Tablero JUGADOR #1");
+          if(turnoPlayer){
+             mensajes(tablero2,coorX,coorY);
+          }
           for(int i = 0; i < tableroVPlayer1.length; i++){
               for(int j = 0; j < tableroVPlayer1[i].length; j++){
                   System.out.print(tableroVPlayer1[i][j] + "\t");
@@ -169,8 +173,12 @@ public class batallaNaval {
               System.out.println();
 
           }
+          System.out.println();
+          System.out.println("Tablero JUGADOR #2");
+           if(!turnoPlayer){
+             mensajes(tablero1,coorX,coorY);
+          }
 
-           System.out.println("Tablero JUGADOR #2");
           for(int i = 0; i < tableroVPlayer2.length; i++){
               for(int j = 0; j < tableroVPlayer2[i].length; j++){
                   System.out.print(tableroVPlayer2[i][j] + "\t");
@@ -185,6 +193,17 @@ public class batallaNaval {
     }
 
   }
+
+    //Metodo para los mensajes
+    public static void mensajes(int tablero[][], int x, int y){
+
+      if(tablero[x][y] == 1){
+         System.out.print("Tripulación: Capitán!!, le dimos a un objetivo. \n");
+      } else{
+        System.out.print("Tripulación: Aaaahhh!, fallamos este ataque. \n");
+      }
+
+    }
 
     //Ver los puntos de vida de cada jugador segun la cantidad de barcos
     public static int cantPuntosBarcosPlayer(int tableroPlayer[][]) {
