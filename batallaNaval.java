@@ -11,6 +11,7 @@
 
 import javax.swing.JOptionPane;
 import java.util.Scanner;
+import java.lang.*;
 
 public class batallaNaval {
 
@@ -98,47 +99,65 @@ public class batallaNaval {
         //contador de puntos jugador2
         int contPlayer2 = 0;
         int contBarcoPlayer2 = cantPuntosBarcosPlayer(tablero2);
-        boolean turnoPlayer1 = true;
+        boolean turnoPlayer = true;
 
-        //coordenadas al jugar
+        //coordenadas del jugador
         int coorX = 0;
         int coorY = 0;
+        String CoorXY;
+        String x = "X";
 
         while((contPlayer1 <= contBarcoPlayer1) || (contPlayer2 <= contBarcoPlayer2)){
-            coorX = Integer.parseInt(JOptionPane.showInputDialog("Digitar coordenada en X"));
-            coorY = Integer.parseInt(JOptionPane.showInputDialog("Digitar coordenada en Y"));
 
-            if(turnoPlayer1){
-               System.out.print("Turno del jugador 1 \n");
-                  for(int i = 0; i < 6; i++){
-                      for(int j = 0; j < 6; j++){
-                          if(tablero2[coorX][coorY] == 1){
-                              tableroVPlayer2[coorX][coorY] = "O";
-                          } else{
-                              tableroVPlayer2[coorX][coorY] = "X";
-                          }
-                      }
-                      System.out.println();
-
-                  }
-            contPlayer1++;
+            if(turnoPlayer){
+               CoorXY = JOptionPane.showInputDialog(
+                "Turno del jugador #1 \n" +
+                "Digitar las coordenadas de ataque"
+               );
             } else{
-                System.out.print("Turno del jugador 2 \n");
-                      for(int i = 0; i < 6; i++){
-                          for(int j = 0; j < 6; j++){
-                              if(tablero1[coorX][coorY] == 1){
-                                  tableroVPlayer1[coorX][coorY] = "O";
-                              } else{
-                                  tableroVPlayer1[coorX][coorY] = "X";
-                              }
-                          }
-                          System.out.println();
-
-                      }
-                contPlayer2++;
+                CoorXY = JOptionPane.showInputDialog(
+                "Turno del jugador #2 \n" +
+                "Digitar las coordenadas de ataque"
+               );
             }
 
-          System.out.println("tablero visible player 1");
+            String[] cXY = CoorXY.split(",");
+            coorX = Integer.parseInt(cXY[0]);
+            coorY = Integer.parseInt(cXY[1]);
+
+            if(turnoPlayer){
+               System.out.print("ATAQUE JUGADOR #1 \n");
+
+               if(tableroVPlayer2[coorX][coorY] == x){
+                    System.out.print("haz atacado en un mismo punto");
+               } else{
+                  if(tablero2[coorX][coorY] == 1){
+                      tableroVPlayer2[coorX][coorY] = "O";
+                  } else {
+                     tableroVPlayer2[coorX][coorY] = "X";
+                     }
+                   }
+
+            contPlayer1++;
+
+            } else {
+                System.out.print("ATAQUE JUGADOR #2 \n");
+
+               if(tableroVPlayer1[coorX][coorY] == x){
+                    System.out.print("haz atacado en un mismo punto");
+               } else{
+                  if(tablero1[coorX][coorY] == 1){
+                      tableroVPlayer1[coorX][coorY] = "O";
+                  } else {
+                     tableroVPlayer1[coorX][coorY] = "X";
+                     }
+                   }
+
+            contPlayer2++;
+
+            }
+
+          System.out.println("Tablero JUGADOR #1");
           for(int i = 0; i < tableroVPlayer1.length; i++){
               for(int j = 0; j < tableroVPlayer1[i].length; j++){
                   System.out.print(tableroVPlayer1[i][j] + "\t");
@@ -147,7 +166,7 @@ public class batallaNaval {
 
           }
 
-           System.out.println("tablero visible player 2");
+           System.out.println("Tablero JUGADOR #2");
           for(int i = 0; i < tableroVPlayer2.length; i++){
               for(int j = 0; j < tableroVPlayer2[i].length; j++){
                   System.out.print(tableroVPlayer2[i][j] + "\t");
@@ -156,45 +175,11 @@ public class batallaNaval {
 
           }
 
-        System.out.println("tablero2");
-        for(int i = 0; i<6; i++){
-            for(int j = 0; j<6; j++){
-                System.out.print("|"+tablero2[i][j]+"|");
-            }
-            System.out.println("");
-            System.out.println("----------------");
-        }
-
-        System.out.println("tablero1");
-        for(int i = 0; i<6; i++){
-            for(int j = 0; j<6; j++){
-                System.out.print("|"+tablero1[i][j]+"|");
-            }
-            System.out.println();
-            System.out.println("----------------");
-        }
-
-      turnoPlayer1 = !turnoPlayer1;
+      turnoPlayer = !turnoPlayer;
 
     }
 
-
-
-        //ciclos visibles
-        System.out.println("tablero visible player 1");
-
-          for(int i = 0; i < tableroVPlayer1.length; i++){
-              for(int j = 0; j < tableroVPlayer1[i].length; j++){
-                  System.out.print(tableroVPlayer1[i][j] + "\t");
-              }
-              System.out.println();
-
-          }
-
-
-        System.out.println("cantidad de barcos que tiene el jugador 1: " + contBarcoPlayer1 + "\n");
-        System.out.println("cantidad de barcos que tiene el jugador 2: " + contBarcoPlayer2);
-    }
+  }
 
     //Ver los puntos de vida de cada jugador segun la cantidad de barcos
     public static int cantPuntosBarcosPlayer(int tableroPlayer[][]) {
