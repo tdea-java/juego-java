@@ -10,8 +10,8 @@
  */
 
 import javax.swing.JOptionPane;
-import java.util.Scanner;
-import java.lang.*;
+import java.util.*;
+
 
 public class batallaNaval {
 
@@ -83,10 +83,13 @@ public class batallaNaval {
     //Inicia el juego
     public static void jugar(){
 
-        //Tableros con la información de los barcos de cada jugador
+        //Tableros con la informaciï¿½n de los barcos de cada jugador
         int tablero1 [][]= new int [6][6],tablero2 [][]= new int [6][6];
-        tablero1 = tableros(tablero1,2);
-        tablero2 = tableros(tablero2,3);
+        Random random = new Random();
+        int random1 = random.nextInt(4);
+        int random2 = random.nextInt(4);
+        tablero1 = tableros(tablero1,random1);
+        tablero2 = tableros(tablero2,random2);
 
         //Tableros visibles para el jugador
         String[][] tableroVPlayer1 = tableroVisible();
@@ -110,7 +113,8 @@ public class batallaNaval {
          boolean turnoPlayer = true;
          int turnoJuego = 1;
 
-        while((contPlayer1 <= contBarcoPlayer1) || (contPlayer2 <= contBarcoPlayer2)){
+        while((contPlayer1<contBarcoPlayer1) && (contPlayer2<contBarcoPlayer2)){
+
 
             if(turnoPlayer){
                CoorXY = JOptionPane.showInputDialog(
@@ -128,41 +132,43 @@ public class batallaNaval {
             coorX = Integer.parseInt(cXY[0]);
             coorY = Integer.parseInt(cXY[1]);
 
-            System.out.print("Turno de la partida #" + turnoJuego + "\n\n");
+            System.out.print("\nTurno de la partida #" + turnoJuego + " \t |  ");
 
             if(turnoPlayer){
                System.out.print("ATAQUE JUGADOR #1 \n"
-                + "----------------- \n");
+                + "--------------------------- \n");
 
-               if(tableroVPlayer2[coorX][coorY] != "-"){
-                    System.out.print("Tripulación: Capitán!! pon más cuidado, estamos atacando en el mismo punto. \n");
-               } else{
-                  if(tablero2[coorX][coorY] == 1){
+               if(tableroVPlayer2[coorX][coorY].equals("-")){
+                    if(tablero2[coorX][coorY] == 1){
                       tableroVPlayer2[coorX][coorY] = "O";
+                      contPlayer1++;
                   } else {
                      tableroVPlayer2[coorX][coorY] = "X";
-                     }
-                   }
-            contPlayer1++;
+                  }
+               }
 
             } else {
                 System.out.print("ATAQUE JUGADOR #2 \n"
                   + "----------------- \n");
 
-               if(tableroVPlayer1[coorX][coorY] != "-"){
-                    System.out.print("Tripulación: Capitán!! pon más cuidado, estamos atacando en el mismo punto. \n");
-               } else{
-                  if(tablero1[coorX][coorY] == 1){
+               if(tableroVPlayer1[coorX][coorY].equals("-")){
+                    if(tablero1[coorX][coorY] == 1){
                       tableroVPlayer1[coorX][coorY] = "O";
+                      contPlayer2++;
                   } else {
                      tableroVPlayer1[coorX][coorY] = "X";
                      }
-                   }
-
-            contPlayer2++;
+               }
             }
 
           System.out.println("Tablero JUGADOR #1");
+          if(turnoPlayer){
+             if(!tableroVPlayer2[coorX][coorY].equals("-")){
+            System.out.print("Tripulación: Capitán!! pon más cuidado, estamos atacando en el mismo punto. \n");
+           }
+          }
+
+
           if(turnoPlayer){
              mensajes(tablero2,coorX,coorY);
           }
@@ -177,8 +183,15 @@ public class batallaNaval {
 
           }
           System.out.println();
+
           System.out.println("Tablero JUGADOR #2");
-           if(!turnoPlayer){
+          if(!turnoPlayer){
+             if(!tableroVPlayer1[coorX][coorY].equals("-")){
+            System.out.print("Tripulación: Capitán!! pon más cuidado, estamos atacando en el mismo punto. \n");
+           }
+          }
+
+          if(!turnoPlayer){
              mensajes(tablero1,coorX,coorY);
           }
           System.out.print("y/x\t0\t1\t2\t3\t4\t5\n");
@@ -195,16 +208,41 @@ public class batallaNaval {
       turnoJuego++;
 
     }
+    if(contPlayer1>contPlayer2){
+        System.out.println("El ganador es el jugador 1");
+    }else{
+        System.out.println("El ganador es el jugador 2");
+    }
 
   }
 
     //Metodo para los mensajes
     public static void mensajes(int tablero[][], int x, int y){
 
+      String[] msgFallos =
+      {
+      "Tripulacion: ¡¡¡Mira donde tiras!!!",
+      "Tripulacion: Seguro me abuelita le hubiera dado",
+      "Tripulacion: Casi estoy acostumbrado a que falles",
+      "Tripulacion: Por poco, seguro que a la próxima le damos."
+      };
+
+      String[] msgBuenos =
+      {
+      "Tripulacion: Booyah!, de eso estamos hablando.",
+      "Tripulacion: Justo en el blanco!",
+      "Tripulacion: Bien, a eso me refería.",
+      "Tripulacion: Ese es nuestro capitán."
+      };
+
+      Random random = new Random();
+      int opc = random.nextInt(4);
+
+
       if(tablero[x][y] == 1){
-         System.out.print("Tripulación: Capitán!!, le dimos a un objetivo. \n");
+         System.out.print(msgBuenos[opc]+ "\n");
       } else{
-        System.out.print("Tripulación: Aaaahhh!, fallamos este ataque. \n");
+        System.out.print(msgFallos[opc]+ "\n");
       }
 
     }
@@ -225,7 +263,16 @@ public class batallaNaval {
     //Instrucciones de juego
     public static void instruccionesJuego(){
       Scanner sc = new Scanner(System.in);
-      System.out.print("manual de usuario, digitar 1 para volver al menu");
+      System.out.println("MANUAL DE USUARIO \n"+
+              "El objetivo del juego es destruir la flota de nuestro enemigo,\n"+
+              "para esto debes ingresar las coordenadas de la forma x,y '0 - 5' \n"+
+              "si aciertas destrozaras un parte de su barco, las flotas \n"+
+              "estan constitudias por 4 barcos: \n"+
+              "1. de 5 partes, *** El gran navio ***\n"+
+              "1. de 3 partes, *** El constructor ***\n"+
+              "2. de 2 partes, *** Los barredores ***\n"+
+              "Â¡Â¡Â¡AL ATAQUE!!!");
+     System.out.print("Escriba 1, para volver al menÃº");
       int opcion = sc.nextInt();
 
       if(opcion == 1){
@@ -250,12 +297,13 @@ public class batallaNaval {
 
         optionUser = Integer.parseInt(JOptionPane.showInputDialog(
          "######################################### \n" +
-         " BIENVENIDOS AL JUEGO BATALLA NAVAL V.1 \n" +
-          "######################################### \n" +
-         "1. Instrucciones del juego\n" +
+         "BIENVENIDOS AL JUEGO BATALLA NAVAL V.1\n" +
+         "######################################### \n" +
+         "1. Instrucciones del juego \n" +
          "2. Como funciona \n" +
          "3. Empezar juego \n" +
-         "4. Salir"
+         "4. Salir \n"+
+         "######################################### \n"
         ));
 
         switch(optionUser){
