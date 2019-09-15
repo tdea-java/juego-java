@@ -88,6 +88,10 @@ public class batallaNaval {
         Random random = new Random();
         int random1 = random.nextInt(4);
         int random2 = random.nextInt(4);
+
+        if(random1 == random2){
+          random2 = random.nextInt(4);
+        }
         tablero1 = tableros(tablero1,random1);
         tablero2 = tableros(tablero2,random2);
 
@@ -107,7 +111,6 @@ public class batallaNaval {
         int coorX = 0;
         int coorY = 0;
         String CoorXY;
-        String x = "X";
 
         //variables globales para los dos jugadores
          boolean turnoPlayer = true;
@@ -138,40 +141,40 @@ public class batallaNaval {
                System.out.print("ATAQUE JUGADOR #1 \n"
                 + "--------------------------- \n");
 
-               if(tableroVPlayer2[coorX][coorY].equals("-")){
-                    if(tablero2[coorX][coorY] == 1){
+               if(!tableroVPlayer2[coorX][coorY].equals("-")){
+                    System.out.print("Capitan!! pon mas cuidado, estamos atacando en el mismo punto.\n");
+               } else{
+                  if(tablero2[coorX][coorY] == 1){
                       tableroVPlayer2[coorX][coorY] = "O";
                       contPlayer1++;
                   } else {
                      tableroVPlayer2[coorX][coorY] = "X";
+                     }
                   }
-               }
 
             } else {
                 System.out.print("ATAQUE JUGADOR #2 \n"
                   + "----------------- \n");
 
-               if(tableroVPlayer1[coorX][coorY].equals("-")){
-                    if(tablero1[coorX][coorY] == 1){
+               if(!tableroVPlayer1[coorX][coorY].equals("-")){
+                   System.out.print("Capitan!! pon mas cuidado, estamos atacando en el mismo punto.\n");
+               } else{
+                  if(tablero1[coorX][coorY] == 1){
                       tableroVPlayer1[coorX][coorY] = "O";
                       contPlayer2++;
                   } else {
                      tableroVPlayer1[coorX][coorY] = "X";
                      }
-               }
+                 }
+
+
             }
 
           System.out.println("Tablero JUGADOR #1");
           if(turnoPlayer){
-             if(!tableroVPlayer2[coorX][coorY].equals("-")){
-            System.out.print("Tripulación: Capitán!! pon más cuidado, estamos atacando en el mismo punto. \n");
-           }
-          }
-
-
-          if(turnoPlayer){
              mensajes(tablero2,coorX,coorY);
           }
+
           System.out.print("y/x\t0\t1\t2\t3\t4\t5\n");
           for(int i = 0; i < tableroVPlayer1.length; i++){
             System.out.print( i +"\t");
@@ -185,11 +188,6 @@ public class batallaNaval {
           System.out.println();
 
           System.out.println("Tablero JUGADOR #2");
-          if(!turnoPlayer){
-             if(!tableroVPlayer1[coorX][coorY].equals("-")){
-            System.out.print("Tripulación: Capitán!! pon más cuidado, estamos atacando en el mismo punto. \n");
-           }
-          }
 
           if(!turnoPlayer){
              mensajes(tablero1,coorX,coorY);
@@ -209,9 +207,14 @@ public class batallaNaval {
 
     }
     if(contPlayer1>contPlayer2){
-        System.out.println("El ganador es el jugador 1");
+        System.out.println(
+          "ENHORABUENA \n"
+          + "-------------- \n"
+          + "El ganador es el jugador 1");
     }else{
-        System.out.println("El ganador es el jugador 2");
+         System.out.println("ENHORABUENA \n"
+          + "-------------- \n"
+          + "El ganador es el jugador 2");
     }
 
   }
@@ -224,15 +227,15 @@ public class batallaNaval {
       "Tripulacion: ¡¡¡Mira donde tiras!!!",
       "Tripulacion: Seguro me abuelita le hubiera dado",
       "Tripulacion: Casi estoy acostumbrado a que falles",
-      "Tripulacion: Por poco, seguro que a la próxima le damos."
+      "Tripulacion: Por poco, seguro que a la proxima le damos."
       };
 
       String[] msgBuenos =
       {
       "Tripulacion: Booyah!, de eso estamos hablando.",
       "Tripulacion: Justo en el blanco!",
-      "Tripulacion: Bien, a eso me refería.",
-      "Tripulacion: Ese es nuestro capitán."
+      "Tripulacion: Bien, a eso me referia.",
+      "Tripulacion: Ese es nuestro capitan."
       };
 
       Random random = new Random();
@@ -271,8 +274,8 @@ public class batallaNaval {
               "1. de 5 partes, *** El gran navio ***\n"+
               "1. de 3 partes, *** El constructor ***\n"+
               "2. de 2 partes, *** Los barredores ***\n"+
-              "Â¡Â¡Â¡AL ATAQUE!!!");
-     System.out.print("Escriba 1, para volver al menÃº");
+              "AL ATAQUE!!!");
+     System.out.print("Escriba 1, para volver al menu: ");
       int opcion = sc.nextInt();
 
       if(opcion == 1){
@@ -300,9 +303,8 @@ public class batallaNaval {
          "BIENVENIDOS AL JUEGO BATALLA NAVAL V.1\n" +
          "######################################### \n" +
          "1. Instrucciones del juego \n" +
-         "2. Como funciona \n" +
-         "3. Empezar juego \n" +
-         "4. Salir \n"+
+         "2. Empezar juego \n" +
+         "3. Salir \n"+
          "######################################### \n"
         ));
 
@@ -311,11 +313,13 @@ public class batallaNaval {
             instruccionesJuego();
            break;
           case 2:
-            comoFunciona();
-           break;
-          case 3:
             jugar();
            break;
+          case 3:
+            System.out.println("Gracias por jugar!");
+            break;
+          default:
+            System.out.println("Digite una opcion valida");
         }
     }
 }
