@@ -83,7 +83,7 @@ public class batallaNaval {
     //Inicia el juego
     public static void jugar(){
 
-        //Tableros con la informaciï¿½n de los barcos de cada jugador
+        //Tableros con la informacion de los barcos de cada jugador
         int tablero1 [][]= new int [6][6],tablero2 [][]= new int [6][6];
         Random random = new Random();
         int random1 = random.nextInt(4);
@@ -122,12 +122,12 @@ public class batallaNaval {
             if(turnoPlayer){
                CoorXY = JOptionPane.showInputDialog(
                 "Turno del jugador #1 \n" +
-                "Capitán!! Cordenadas para atacar"
+                "Capitán!! Coordenadas para atacar."
                );
             } else{
                 CoorXY = JOptionPane.showInputDialog(
                 "Turno del jugador #2 \n" +
-                "Capitán!! Cordenadas para atacar"
+                "Capitán!! Coordenadas para atacar."
                );
             }
 
@@ -183,8 +183,8 @@ public class batallaNaval {
                   System.out.print(tableroVPlayer1[i][j] + "\t");
               }
               System.out.println();
-
           }
+
           System.out.println();
 
           System.out.println("Tablero JUGADOR #2");
@@ -268,7 +268,7 @@ public class batallaNaval {
       Scanner sc = new Scanner(System.in);
       System.out.println("MANUAL DE USUARIO \n"+
               "El objetivo del juego es destruir la flota de nuestro enemigo,\n"+
-              "para esto debes ingresar las coordenadas de la forma x,y '0 - 5' \n"+
+              "para esto debes ingresar las coordenadas de la forma x,y '0,5' \n"+
               "si aciertas destrozaras un parte de su barco, las flotas \n"+
               "estan constitudias por 4 barcos: \n"+
               "1. de 5 partes, *** El gran navio ***\n"+
@@ -319,7 +319,9 @@ public class batallaNaval {
             System.out.println("Gracias por jugar!");
             break;
           default:
-            System.out.println("Digite una opcion valida");
-        }
+            menuUsuario();
+       }
+
     }
+
 }
